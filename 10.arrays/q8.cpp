@@ -2,7 +2,7 @@
 
 int main()
 {
-    const int items_count = 5;
+    const int ITEMS_CNT = 5;
     int coupon_price;
     int coupon_discount;
 
@@ -12,11 +12,11 @@ int main()
     std::cout << "Enter the discount price of the coupon (rs): ";
     std::cin >> coupon_discount;
     
-    int prices[items_count];
+    int prices[ITEMS_CNT];
 
-    std::cout << "\nEnter item prices (rs)\n";
+    std::cout << "\nEnter item prices (rs) of\n";
 
-    for (int i = 0; i < items_count; i++)
+    for (int i = 0; i < ITEMS_CNT; i++)
     {
         std::cout << "item" << (i+1) << ": ";
         std::cin >> prices[i];
@@ -24,7 +24,7 @@ int main()
 
     int saving_amount = 0;
 
-    for (int i = 0; i < items_count; i++)
+    for (int i = 0; i < ITEMS_CNT; i++)
     {
         if (prices[i] >= coupon_discount)
         {
