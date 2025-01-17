@@ -48,3 +48,11 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeSettings.json
+
+# Code Runner exe
+**/*.exe
+**/*.o
+**/*.obj
+**/*.out
+**/*.bin
+**/*.a
