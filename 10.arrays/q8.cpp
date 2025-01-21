@@ -11,15 +11,17 @@ int main()
 
     std::cout << "Enter the discount price of the coupon (rs): ";
     std::cin >> coupon_discount;
-    
+
     int prices[ITEMS_CNT];
+    int total_cost_without_coupon = 0;
 
     std::cout << "\nEnter item prices (rs) of\n";
 
     for (int i = 0; i < ITEMS_CNT; i++)
     {
-        std::cout << "item" << (i+1) << ": ";
+        std::cout << "item" << (i + 1) << ": ";
         std::cin >> prices[i];
+        total_cost_without_coupon += prices[i];
     }
 
     int saving_amount = 0;
@@ -36,7 +38,9 @@ int main()
         }
     }
 
-    if (saving_amount > coupon_price)
+    int total_cost_with_coupon = total_cost_without_coupon - saving_amount + coupon_price;
+
+    if (total_cost_with_coupon < total_cost_without_coupon)
     {
         std::cout << "\nDO use coupon\n";
     }
