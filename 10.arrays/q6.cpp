@@ -5,7 +5,7 @@ int main()
     const int DAYS_CNT = 7;
     int temperatures[DAYS_CNT];
 
-    std::cout << "Enter the temperature (°C) for";
+    std::cout << "Enter the temperature (°C) for\n";
 
     for (int i = 0; i < DAYS_CNT; i++)
     {

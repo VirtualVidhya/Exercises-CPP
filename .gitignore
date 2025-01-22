@@ -51,3 +51,4 @@ CMakeSettings.json
 
 # CodeRunner output files
 bin/
+test.cpp
