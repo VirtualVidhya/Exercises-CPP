@@ -1,127 +1,75 @@
 #include <iostream>
 
-const int ROWS = 5;
-const int COLS = 6;
-
-void displaySeats(bool seats[ROWS][COLS])
+int main()
 {
-    std::cout << "\nCurrent Seating Chart:\n\n";
-    std::cout << "     ";
-    for (int col = 0; col < COLS; ++col)
+    const int DAYS = 7;
+    const int TIMES = 4;
+    const std::string TIME_LABELS[TIMES] = {"Morning", "Noon", "Evening", "Night"};
+    int temperatures[DAYS][TIMES];
+
+    std::cout << "----------------\n";
+    std::cout << "Enter temperature readings for each day and time:\n";
+    std::cout << "----------------\n\n";
+
+    for (int day = 0; day < DAYS; day++)
     {
-        std::cout << col + 1 << " ";
-    }
-    std::cout << "\n";
-    std::cout << "    -";
-    for (int col = 0; col < COLS; ++col)
-    {
-        std::cout << "--";
-    }
-    std::cout << "\n";
-    for (int row = 0; row < ROWS; ++row)
-    {
-        std::cout << row + 1 << "  | ";
-        for (int col = 0; col < COLS; ++col)
+        std::cout << "Day " << (day + 1) << ":\n";
+        std::cout << "--------\n";
+        for (int time = 0; time < TIMES; time++)
         {
-            if (seats[row][col])
-            {
-                std::cout << "X "; // X represents a booked seat
-            }
-            else
-            {
-                std::cout << "O "; // O represents an available seat
-            }
+            std::cout << TIME_LABELS[time] << ": ";
+            std::cin >> temperatures[day][time];
         }
         std::cout << "\n";
     }
-}
 
-bool isSeatAvailable(bool seats[ROWS][COLS], int row, int col)
-{
-    return !seats[row][col];
-}
+    std::cout << "----------------\n";
 
-void bookSeat(bool seats[ROWS][COLS], int row, int col)
-{
-    if (isSeatAvailable(seats, row, col))
+    int query_day;
+    std::cout << "\nEnter the day number (1-7) to get the average temperature: ";
+    std::cin >> query_day;
+
+    if (query_day < 1 || query_day > DAYS)
     {
-        seats[row][col] = true;
-        std::cout << "Seat booked successfully!\n";
+        std::cout << "Invalid day number!\n";
+
+        return 1;
     }
-    else
+
+    int sum = 0;
+    for (int time = 0; time < TIMES; time++)
     {
-        std::cout << "Seat is already occupied. Please choose another seat.\n";
+        sum += temperatures[query_day - 1][time];
     }
-}
+    std::cout << "Average temperature on Day " << query_day << ": " << (sum / TIMES) << "°C\n";
 
-int main()
-{
-    bool seats[ROWS][COLS] = {false}; // Initialize all seats as available
+    int hottest_temp = temperatures[0][0], coldest_temp = temperatures[0][0];
+    int hottest_day = 0, coldest_day = 0;
+    int hottest_time = 0, coldest_time = 0;
 
-    int choice;
-    do
+    for (int day = 0; day < DAYS; day++)
     {
-        std::cout << "\n----------------\n";
-        std::cout << "# Options:\n";
-        std::cout << "1. Display Seating Chart\n";
-        std::cout << "2. Check Seat Availability\n";
-        std::cout << "3. Book a Seat\n";
-        std::cout << "4. Exit\n";
-        std::cout << "----------------\n";
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
+        for (int time = 0; time < TIMES; time++)
+        {
+            if (temperatures[day][time] > hottest_temp)
+            {
+                hottest_temp = temperatures[day][time];
+                hottest_day = day;
+                hottest_time = time;
+            }
 
-        switch (choice)
-        {
-        case 1:
-            displaySeats(seats);
-            break;
-        case 2:
-        {
-            int row, col;
-            std::cout << "\nEnter row (1-" << ROWS << ") and column (1-" << COLS << ") to check availability: ";
-            std::cin >> row >> col;
-            if (row < 1 || row > ROWS || col < 1 || col > COLS)
+            if (temperatures[day][time] < coldest_temp)
             {
-                std::cout << "Invalid seat selection.\n";
+                coldest_temp = temperatures[day][time];
+                coldest_day = day;
+                coldest_time = time;
             }
-            else
-            {
-                if (isSeatAvailable(seats, row - 1, col - 1))
-                {
-                    std::cout << "Seat is available.\n";
-                }
-                else
-                {
-                    std::cout << "Seat is already occupied.\n";
-                }
-            }
-            break;
         }
-        case 3:
-        {
-            int row, col;
-            std::cout << "\nEnter row (1-" << ROWS << ") and column (1-" << COLS << ") to book: ";
-            std::cin >> row >> col;
-            if (row < 1 || row > ROWS || col < 1 || col > COLS)
-            {
-                std::cout << "Invalid seat selection.\n";
-            }
-            else
-            {
-                bookSeat(seats, row - 1, col - 1);
-                displaySeats(seats);
-            }
-            break;
-        }
-        case 4:
-            std::cout << "\nExiting the system.\n";
-            break;
-        default:
-            std::cout << "\nInvalid choice. Please try again.\n";
-        }
-    } 
-    while (choice != 4);
+    }
+
+    std::cout << "\n----------------\n";
+    std::cout << "Hottest temperature of the week: " << hottest_temp << "°C on Day " << (hottest_day + 1) << " (" << TIME_LABELS[hottest_time] << ")\n";
+    std::cout << "Coldest temperature of the week: " << coldest_temp << "°C on Day " << (coldest_day + 1) << " (" << TIME_LABELS[coldest_time] << ")\n";
 
     return 0;
 }
