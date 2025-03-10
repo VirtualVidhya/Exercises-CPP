@@ -4,11 +4,10 @@ class SmartThermostat
 {
 private:
     double temperature;
-    static constexpr double MIN_TEMP = 16.0; // System-enforced minimum
-    static constexpr double MAX_TEMP = 30.0; // System-enforced maximum
+    static constexpr double MIN_TEMP = 10.0;
+    static constexpr double MAX_TEMP = 40.0;
 
 public:
-    // Constructor initializes temperature within range
     SmartThermostat(double initialTemp)
     {
         if (initialTemp < MIN_TEMP)
@@ -27,13 +26,11 @@ public:
         }
     }
 
-    // Get current temperature
     double getTemperature() const
     {
         return temperature;
     }
 
-    // Set a new temperature with validation
     void setTemperature(double newTemp)
     {
         if (newTemp < MIN_TEMP)
@@ -53,7 +50,6 @@ public:
         }
     }
 
-    // Determine thermostat status based on temperature
     std::string getThermostatStatus() const
     {
         if (temperature < 20.0)
@@ -70,13 +66,11 @@ public:
         }
     }
 
-    // Check if Energy-Saving Mode is active
     bool isEnergySavingMode() const
     {
         return (temperature >= 20.0 && temperature <= 30.0);
     }
 
-    // Display thermostat status
     void displayStatus() const
     {
         std::cout << "\nCurrent Temperature: " << temperature << "°C\n";
@@ -87,22 +81,18 @@ public:
 
 int main()
 {
-    // Initializing thermostat with an initial temperature of 18°C
     std::cout << "--- Initializing Thermostat with 18°C ---\n";
     SmartThermostat thermostat(18);
     thermostat.displayStatus();
 
-    // Setting temperature to 32°C (out of range, should be corrected)
     std::cout << "\n--- Attempting to Set Temperature to 32°C ---\n";
     thermostat.setTemperature(32);
     thermostat.displayStatus();
 
-    // Setting temperature to 22°C (within range)
     std::cout << "\n--- Attempting to Set Temperature to 22°C ---\n";
     thermostat.setTemperature(22);
     thermostat.displayStatus();
 
-    // Setting temperature to 10°C (out of range, should be corrected)
     std::cout << "\n--- Attempting to Set Temperature to 10°C ---\n";
     thermostat.setTemperature(10);
     thermostat.displayStatus();
