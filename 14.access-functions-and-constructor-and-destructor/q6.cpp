@@ -33,6 +33,7 @@ public:
             std::cout << "Error: Cannot switch to Sport Mode. Battery is too low.\n";
             return;
         }
+
         mode = newMode;
         displayMode();
     }
@@ -68,8 +69,9 @@ public:
             batteryLevel = 100;
 
         std::cout << "Boosted battery by " << amount << "%. Current level: " << batteryLevel << "%.\n";
-        if (batteryLevel >= 50)
-            mode = DriveMode::Normal; // Reset to normal if battery is sufficient
+        
+        // if (batteryLevel >= 50)
+        //     mode = DriveMode::Normal; // Reset to normal if battery is sufficient
 
         displayStatus();
     }
@@ -77,6 +79,7 @@ public:
     void displayMode()
     {
         std::cout << "Drive Mode: ";
+
         switch (mode)
         {
         case DriveMode::Normal:
@@ -89,6 +92,7 @@ public:
             std::cout << "Sport Mode (High Performance)";
             break;
         }
+
         std::cout << "\n";
     }
 

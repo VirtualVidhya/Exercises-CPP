@@ -62,6 +62,7 @@ public:
             std::cout << "Money returned: ₹" << balance << "\n";
             balance = 0;
         }
+
         std::cout << "System exited.\n";
     }
 
@@ -72,6 +73,7 @@ public:
             std::cout << "Unexpected shutdown detected! Returning ₹" << balance << " to the user.\n";
             balance = 0;
         }
+        
         std::cout << "System exited.\n";
     }
 };
